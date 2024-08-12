@@ -42,6 +42,8 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+- [Running E2E Testing](#running-e2e-testing)
+- [Running Unit Testing](#running-unit-testing)
 - [Roadmap](#roadmap)
 - [Demo](#demo)
 - [Contact](#contact)
@@ -168,7 +170,7 @@ See the [open issues](https://github.com/VikaVP/employee-tree/issues) for a list
 
 ## Demo
 
-[You can download demo app by click this](bit.ly/37ex2nA)
+[You can visit demo app by click this](https://employee-tree-d8jbcn88s-vikavps-projects.vercel.app/)
 
 <!-- CONTRIBUTING -->
 
