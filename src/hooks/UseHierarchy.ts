@@ -1,15 +1,25 @@
 /* eslint-disable consistent-return */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useColorRandom } from './UseColorRandom';
+import { useCountDirectIndirectReports } from './UseCountDirectIndirectReports';
+import { useEmployee } from './UseEmployee';
 
 /**
  * React Hook to hierarchy element.
  * @hook
  */
-export const useHierarchy = () => {
+export const useHierarchy = ({
+  query,
+  bottomRef,
+}: {
+  query: TreeNode | null;
+  bottomRef: any;
+}) => {
   const [hierarchy, setHierarchy] = useState<TreeNode | null | string>(null);
   const { getRandomColor } = useColorRandom();
+  const { countDirectIndirectReports, count } = useCountDirectIndirectReports();
+  const { getDatas } = useEmployee();
 
   // Build hierarchy upwards from the target employee
   const buildHierarchyUpwards = (
@@ -90,5 +100,24 @@ export const useHierarchy = () => {
     return buildHierarchyUpwards(targetEmployee, employeeMap);
   };
 
-  return { hierarchy, buildHierarchy };
+  useEffect(() => {
+    query?.id &&
+      typeof hierarchy === 'object' &&
+      hierarchy?.id &&
+      (bottomRef.current as any)?.scrollIntoView({ behavior: 'smooth' });
+  }, [query, hierarchy]);
+
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (query?.id) {
+        const data = await getDatas();
+        buildHierarchy(data as TreeNode[], query.name);
+        countDirectIndirectReports(data as TreeNode[], query.name);
+      }
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  return { hierarchy, buildHierarchy, count };
 };

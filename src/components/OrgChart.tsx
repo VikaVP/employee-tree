@@ -3,38 +3,18 @@
 import Image from 'next/image';
 import { OrganizationChart } from 'primereact/organizationchart';
 import { ScrollPanel } from 'primereact/scrollpanel';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
-import { useCountDirectIndirectReports } from '@/hooks/UseCountDirectIndirectReports';
-import { useEmployee } from '@/hooks/UseEmployee';
 import { useHierarchy } from '@/hooks/UseHierarchy';
 
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 
 export default function OrgChart({ query }: { query: TreeNode | null }) {
-  const { hierarchy, buildHierarchy } = useHierarchy();
-  const { countDirectIndirectReports, count } = useCountDirectIndirectReports();
   const bottomRef = useRef(null);
-  const { getDatas } = useEmployee();
-
-  useEffect(() => {
-    query?.id &&
-      typeof hierarchy === 'object' &&
-      hierarchy?.id &&
-      (bottomRef.current as any)?.scrollIntoView({ behavior: 'smooth' });
-  }, [query, hierarchy]);
-
-  useEffect(() => {
-    const timer = setTimeout(async () => {
-      if (query?.id) {
-        const data = await getDatas();
-        buildHierarchy(data as TreeNode[], query.name);
-        countDirectIndirectReports(data as TreeNode[], query.name);
-      }
-    }, 50);
-
-    return () => clearTimeout(timer);
-  }, [query]);
+  const { hierarchy, count } = useHierarchy({
+    query,
+    bottomRef,
+  });
 
   const nodeTemplate = (node: any) => {
     if (node.type === 'person') {

@@ -6,13 +6,19 @@ import { useHierarchy } from '../../../src/hooks/UseHierarchy';
 // Mock the useColorRandom hook
 vi.mock('../../../src/hooks/UseColorRandom', () => ({
   useColorRandom: () => ({
-    getRandomColor: () => 'bg-red-500', // Return a fixed color for testing
+    // Return a fixed color for testing
+    getRandomColor: () => 'bg-red-500',
   }),
 }));
 
 describe('UseHierarchy', () => {
   it('should initialize with null hierarchy', () => {
-    const { result } = renderHook(() => useHierarchy());
+    const { result } = renderHook(() =>
+      useHierarchy({
+        query: null,
+        bottomRef: { current: null },
+      }),
+    );
 
     expect(result.current.hierarchy).toBeNull();
   });
@@ -23,7 +29,12 @@ describe('UseHierarchy', () => {
       { id: 2, name: 'B', managerId: 1, children: [] },
     ];
 
-    const { result } = renderHook(() => useHierarchy());
+    const { result } = renderHook(() =>
+      useHierarchy({
+        query: null,
+        bottomRef: { current: null },
+      }),
+    );
 
     act(() => {
       result.current.buildHierarchy(employees, 'A');
@@ -52,7 +63,12 @@ describe('UseHierarchy', () => {
       { id: 3, name: 'C', managerId: 2, children: [] },
     ];
 
-    const { result } = renderHook(() => useHierarchy());
+    const { result } = renderHook(() =>
+      useHierarchy({
+        query: null,
+        bottomRef: { current: null },
+      }),
+    );
 
     act(() => {
       result.current.buildHierarchy(employees, 'C');
@@ -112,7 +128,12 @@ describe('UseHierarchy', () => {
       { id: 4, name: 'C', managerId: 1, children: [] },
     ];
 
-    const { result } = renderHook(() => useHierarchy());
+    const { result } = renderHook(() =>
+      useHierarchy({
+        query: null,
+        bottomRef: { current: null },
+      }),
+    );
 
     act(() => {
       result.current.buildHierarchy(employees, 'C');
@@ -126,7 +147,12 @@ describe('UseHierarchy', () => {
   it('should handle an employee with no hierarchy', () => {
     const employees = [{ id: 1, name: 'A', managerId: null, children: [] }];
 
-    const { result } = renderHook(() => useHierarchy());
+    const { result } = renderHook(() =>
+      useHierarchy({
+        query: null,
+        bottomRef: { current: null },
+      }),
+    );
 
     act(() => {
       result.current.buildHierarchy(employees, 'A');

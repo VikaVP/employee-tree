@@ -37,9 +37,11 @@ export const employeeSchema = {
 
   updateData({ managerId, name, id }: EmployeeField) {
     const datas = localStorage.getItem('employee');
-    if (datas) {
+    if (datas && id) {
       const parse = JSON.parse(datas);
-      const isExist = [...parse].filter((dt: EmployeeField) => dt.id === id);
+      const isExist = [...parse].filter(
+        (dt: EmployeeField) => +(dt?.id || 0) === +id,
+      );
 
       if (isExist.length > 0) {
         const updatedData = [...parse].map((dt: EmployeeField) => {

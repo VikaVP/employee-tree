@@ -1,10 +1,10 @@
 'use client';
 
 import { InputText } from 'primereact/inputtext';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Select from 'react-tailwindcss-select';
 
-import { useEmployee } from '@/hooks/UseEmployee';
+import { useModalAction } from '@/hooks/UseModalAction';
 
 import { Button } from './ui/button';
 import {
@@ -27,49 +27,18 @@ export default function Modal({
     click?: (data?: any) => void;
   };
 }) {
-  const [selectedEmployee, setSelectedEmployee] =
-    useState<EmployeeOptions | null>(null);
-  const [selectedEmployees, setSelectedEmployees] = useState<
-    EmployeeOptions[] | null
-  >(null);
-  const [name, setName] = useState('');
-  const [selectedManager, setSelectedManager] =
-    useState<EmployeeOptions | null>(null);
-  const { getEmployeeOptions, employeeOptions } = useEmployee();
-
-  useEffect(() => {
-    const getEmployee = async () => {
-      await getEmployeeOptions();
-    };
-    const timer = setTimeout(() => {
-      setName('');
-      setSelectedManager(null);
-      setSelectedEmployee(null);
-      setSelectedEmployees(null);
-      getEmployee();
-    }, 10);
-
-    return () => clearTimeout(timer);
-  }, [open]);
-
-  const handleSubmit = () => {
-    const data =
-      type === 'new'
-        ? {
-            name,
-            managerId: selectedManager?.value,
-          }
-        : type === 'edit'
-          ? {
-              name: selectedEmployee?.label,
-              id: selectedEmployee?.value,
-              managerId: selectedManager?.value,
-            }
-          : selectedEmployees?.map((dt) => {
-              return +dt.value;
-            });
-    click && click(data);
-  };
+  const {
+    selectedEmployee,
+    setSelectedEmployee,
+    selectedEmployees,
+    setSelectedEmployees,
+    name,
+    setName,
+    selectedManager,
+    setSelectedManager,
+    employeeOptions,
+    handleSubmit,
+  } = useModalAction(open, type, click);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

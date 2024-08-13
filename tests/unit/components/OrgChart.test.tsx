@@ -11,7 +11,10 @@ window.HTMLElement.prototype.scrollIntoView = vi.fn();
 vi.mock('../../../src/hooks/UseHierarchy', () => ({
   useHierarchy: () => ({
     hierarchy: { id: 1, name: 'A' },
-    buildHierarchy: vi.fn(),
+    count: {
+      direct: 2,
+      indirect: 4,
+    },
   }),
 }));
 
