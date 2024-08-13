@@ -17,7 +17,7 @@ describe('UseModalAction', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (useEmployee as jest.Mock).mockReturnValue({
+    (useEmployee as any).mockReturnValue({
       getEmployeeOptions: mockGetEmployeeOptions,
       employeeOptions: mockEmployeeOptions,
     });

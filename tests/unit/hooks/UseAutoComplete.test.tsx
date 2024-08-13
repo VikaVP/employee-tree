@@ -17,7 +17,7 @@ describe('UseAutoComplete', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (useEmployee as jest.Mock).mockReturnValue({
+    (useEmployee as any).mockReturnValue({
       getEmployeeAutoComplete: mockGetEmployeeAutoComplete,
       employeeLists: mockEmployeeLists,
     });
