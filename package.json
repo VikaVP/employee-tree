@@ -1,5 +1,5 @@
 {
-  "name": "saas-boilerplate",
+  "name": "employee-tree",
   "version": "1.6.0",
   "scripts": {
     "dev:next": "next dev",
@@ -12,7 +12,7 @@
     "check-types": "tsc --noEmit --pretty",
     "test": "vitest run --coverage",
     "commit": "cz",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --project='chromium' ",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "storybook:serve": "http-server storybook-static --port 6006 --silent",

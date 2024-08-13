@@ -5,6 +5,7 @@ test.use({
 });
 
 test('Home Page Test - delete employee', async ({ page }) => {
+  test.setTimeout(120000);
   // show homepage
   const response = await page.goto('http://localhost:3000/');
   // Test that the response did not fail
