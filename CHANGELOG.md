@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/VikaVP/employee-tree/compare/v1.0.1...v1.1.0) (2024-08-13)
+
+
+### Features
+
+* update commitlint ([d44ba02](https://github.com/VikaVP/employee-tree/commit/d44ba02c64dc1bc62363b7a41a68d6c8af4aad85))
+
 # 1.0.0 (2024-08-13)
 
 
