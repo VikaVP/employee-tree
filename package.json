@@ -1,6 +1,6 @@
 {
   "name": "employee-tree",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev:next": "next dev",
     "dev": "run-p dev:*",
